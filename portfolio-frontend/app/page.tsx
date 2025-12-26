@@ -18,7 +18,8 @@ interface Project {
 // --- BUSCA DE DADOS (BACKEND) ---
 async function getProjects(): Promise<Project[]> {
   try {
-    const res = await fetch('http://localhost:8080/api/projects', { cache: 'no-store' });
+    // Não esqueça do /api/projects no final!
+    const res = await fetch('https://portfolio-fullstack-kodq.onrender.com/api/projects', { cache: 'no-store' });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
