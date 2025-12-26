@@ -1,6 +1,6 @@
 import Image from "next/image";
-// Importando ícones (Java, Spring, Docker, etc...)
-import { FaJava, FaDocker, FaGithub, FaLinkedin, FaLinux } from "react-icons/fa";
+// Importando ícones (Java, Spring, Docker, etc...) e agora WhatsApp/Instagram
+import { FaJava, FaDocker, FaGithub, FaLinkedin, FaLinux, FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { SiSpringboot, SiNextdotjs, SiPostgresql, SiApachekafka, SiTailwindcss } from "react-icons/si";
 
 // --- TIPAGEM ---
@@ -172,7 +172,7 @@ export default async function Home() {
         )}
       </div>
 
-      {/* 4. FOOTER (NOVO!) */}
+      {/* 4. FOOTER (ATUALIZADO!) */}
       <footer className="bg-gray-950 border-t border-gray-900 py-12 mt-12">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
@@ -180,12 +180,25 @@ export default async function Home() {
             <p className="text-sm text-gray-500 mt-1">Engenharia da Computação & Full Stack Dev</p>
           </div>
           
-          <div className="flex gap-6">
-            <a href="https://github.com/SEU_USER" className="text-gray-400 hover:text-white transition-colors text-2xl">
+          <div className="flex gap-6 items-center">
+            {/* GitHub */}
+            <a href="https://github.com/gpontes15" target="_blank" className="text-gray-400 hover:text-white transition-colors text-2xl" title="Meu GitHub">
               <FaGithub />
             </a>
-            <a href="https://linkedin.com/in/SEU_USER" className="text-gray-400 hover:text-blue-500 transition-colors text-2xl">
+            
+            {/* LinkedIn */}
+            <a href="https://www.linkedin.com/in/gpontes203/" target="_blank" className="text-gray-400 hover:text-blue-500 transition-colors text-2xl" title="Meu LinkedIn">
               <FaLinkedin />
+            </a>
+
+            {/* WhatsApp - Coloque seu número com código do país (ex: 5511999999999) */}
+            <a href="https://wa.me/5585994090412" target="_blank" className="text-gray-400 hover:text-green-500 transition-colors text-2xl" title="Me chame no WhatsApp">
+              <FaWhatsapp />
+            </a>
+
+            {/* Instagram - Coloque seu usuário */}
+            <a href="https://instagram.com/gpontes26" target="_blank" className="text-gray-400 hover:text-pink-500 transition-colors text-2xl" title="Meu Instagram">
+              <FaInstagram />
             </a>
           </div>
 
