@@ -1,0 +1,17 @@
+# Ignorar arquivos do sistema/IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Ignorar Backend (Java)
+target/
+*.class
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignorar Frontend (Node)
+node_modules/
+.next/
+dist/
+.env.local
