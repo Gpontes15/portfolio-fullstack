@@ -42,7 +42,7 @@ public class DataInitializer {
             p3.setDescription("Implementação pura de algoritmos fundamentais (Árvore Binária, Hash Table e Lista Encadeada) para indexação eficiente de textos. Demonstra domínio de lógica e manipulação de arquivos em Java.");
             p3.setGithubUrl("https://github.com/Gpontes15/Projeto-ndice-Remissivo");
             p3.setTechStack("Java Core, Algoritmos, Estrutura de Dados");
-            p3.setImageUrl("/file.svg"); // Usando um ícone padrão do Next.js por enquanto
+            p3.setImageUrl("/indice-print.png");
             p3.setCompletionDate(LocalDate.of(2023, 11, 15));
             repository.save(p3);
 
@@ -53,7 +53,7 @@ public class DataInitializer {
             p4.setTechStack("Java 17, Spring Boot, Next.js, PostgreSQL, Docker");
             p4.setGithubUrl("https://github.com/Gpontes15/portfolio-fullstack");
             p4.setDeployUrl("https://portfolio-fullstack-mauve-nu.vercel.app/");
-            p4.setImageUrl("/indice-print.png"); 
+            p4.setImageUrl("/portfolio-print.png"); 
             p4.setCompletionDate(LocalDate.now());
             repository.save(p4);
 
