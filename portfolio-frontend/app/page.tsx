@@ -96,7 +96,7 @@ export default async function Home() {
               <a href="#projects" className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-900/20">
                 Ver Projetos
               </a>
-              <a href="https://linkedin.com/in/SEU_USER" target="_blank" className="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition-all border border-gray-700 flex items-center gap-2">
+              <a href="https://www.linkedin.com/in/gpontes203/" target="_blank" className="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition-all border border-gray-700 flex items-center gap-2">
                 <FaLinkedin /> Conectar
               </a>
             </div>
