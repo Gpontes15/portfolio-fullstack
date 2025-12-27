@@ -54,7 +54,7 @@ export default async function Home() {
             <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-gray-900 shadow-2xl">
               <img 
                 src="/profile.jpg" 
-                alt="Gabriel Pontes" 
+                alt="Gabriel Pontes Araújo" 
                 className="object-cover w-full h-full"
               />
             </div>
