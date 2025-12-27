@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { FaJava, FaDocker, FaGithub, FaLinkedin, FaLinux, FaWhatsapp, FaInstagram, FaNetworkWired, FaMicrochip, FaDatabase, FaServer } from "react-icons/fa";
 import { SiSpringboot, SiNextdotjs, SiPostgresql, SiApachekafka, SiTailwindcss } from "react-icons/si";
 
@@ -14,19 +17,6 @@ interface Project {
   completionDate: string | null;
 }
 
-// --- BUSCA DE DADOS (BACKEND) ---
-async function getProjects(): Promise<Project[]> {
-  try {
-    // Tenta buscar os dados com timeout para não travar a build se o back estiver dormindo
-    const res = await fetch('https://portfolio-fullstack-kodq.onrender.com/api/projects', { cache: 'no-store' });
-    if (!res.ok) return [];
-    return res.json();
-  } catch (error) {
-    console.error("Erro ao buscar projetos:", error);
-    return [];
-  }
-}
-
 // --- LISTA DE SKILLS ---
 const skills = [
   { name: "Java", icon: <FaJava className="w-8 h-8 text-orange-500" /> },
@@ -39,8 +29,28 @@ const skills = [
   { name: "Next.js", icon: <SiNextdotjs className="w-8 h-8 text-white" /> },
 ];
 
-export default async function Home() {
-  const projects = await getProjects();
+export default function Home() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Busca os projetos assim que a tela carrega
+    async function fetchProjects() {
+      try {
+        const res = await fetch('https://portfolio-fullstack-kodq.onrender.com/api/projects');
+        if (res.ok) {
+          const data = await res.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar projetos:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProjects();
+  }, []);
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 font-sans selection:bg-blue-500/30">
@@ -133,35 +143,32 @@ export default async function Home() {
           Portfólio de Projetos
         </h2>
         
-        {projects.length === 0 ? (
-          // --- LOADING STATE (COLD START AVISO) ---
-          <div className="flex flex-col items-center justify-center py-24 px-6 text-center bg-gray-900/50 rounded-2xl border border-gray-800 border-dashed">
-            {/* Ícone de Loading Animado */}
+        {loading ? (
+          // --- LOADING STATE (ANIMADO) ---
+          <div className="flex flex-col items-center justify-center py-24 px-6 text-center bg-gray-900/50 rounded-2xl border border-gray-800 border-dashed animate-pulse">
             <div className="relative mb-6">
               <div className="w-16 h-16 border-4 border-blue-900 rounded-full align-middle"></div>
               <div className="absolute top-0 left-0 w-16 h-16 border-4 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
             </div>
-
             <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-              Acordando o Servidor... 😴
+              Conectando ao Backend... 🛰️
             </h3>
-            
             <p className="text-gray-400 max-w-lg mb-6 leading-relaxed">
-              Como este portfólio utiliza infraestrutura gratuita (Render Free Tier), 
-              o Backend Java pode entrar em modo de suspensão.
-              <br className="hidden md:block" />
-              Por favor, aguarde cerca de <strong>40 a 50 segundos</strong> para a inicialização do container.
+              O servidor Java (Render Free Tier) está "acordando".<br/>
+              Isso pode levar cerca de <strong>50 segundos</strong>.
             </p>
-
             <div className="flex gap-3 text-xs font-mono text-blue-300 bg-blue-900/20 px-4 py-2 rounded-full border border-blue-900/50 flex-wrap justify-center">
-              <span>☕ Iniciando Spring Boot</span>
-              <span>•</span>
-              <span>🐳 Subindo Docker</span>
-              <span>•</span>
-              <span>🚀 Conectando DB</span>
+              <span>☕ Spring Boot Starting...</span>
             </div>
           </div>
+        ) : projects.length === 0 ? (
+          // --- ESTADO OFFLINE (SE FALHAR) ---
+          <div className="text-center py-20 bg-gray-900/50 rounded-2xl border border-gray-800">
+             <p className="text-gray-400 mb-2">Nenhum projeto encontrado.</p>
+             <p className="text-xs text-gray-600">O backend pode estar offline.</p>
+          </div>
         ) : (
+          // --- LISTA DE PROJETOS ---
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
               <div key={project.id} className="group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300 flex flex-col h-full">
