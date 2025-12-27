@@ -17,6 +17,7 @@ interface Project {
 // --- BUSCA DE DADOS (BACKEND) ---
 async function getProjects(): Promise<Project[]> {
   try {
+    // Tenta buscar os dados com timeout para não travar a build se o back estiver dormindo
     const res = await fetch('https://portfolio-fullstack-kodq.onrender.com/api/projects', { cache: 'no-store' });
     if (!res.ok) return [];
     return res.json();
@@ -26,7 +27,7 @@ async function getProjects(): Promise<Project[]> {
   }
 }
 
-// --- LISTA DE SKILLS (ATUALIZADA COM FOCO EM INFRA/BACK) ---
+// --- LISTA DE SKILLS ---
 const skills = [
   { name: "Java", icon: <FaJava className="w-8 h-8 text-orange-500" /> },
   { name: "Spring Boot", icon: <SiSpringboot className="w-8 h-8 text-green-500" /> },
@@ -44,11 +45,11 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 font-sans selection:bg-blue-500/30">
       
-      {/* 1. HERO SECTION (SOBRE MIM - VERSÃO FINAL) */}
+      {/* 1. HERO SECTION */}
       <div className="bg-gradient-to-b from-gray-900 to-gray-950 border-b border-gray-800">
         <div className="max-w-5xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-12">
           
-          {/* Foto com efeito de brilho */}
+          {/* Foto */}
           <div className="relative group flex-shrink-0">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
             <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-gray-900 shadow-2xl">
@@ -85,7 +86,7 @@ export default async function Home() {
               </p>
             </div>
             
-            {/* Badges de Autoridade */}
+            {/* Badges */}
             <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
               <span className="px-3 py-1 bg-blue-900/30 text-blue-300 text-xs font-mono rounded border border-blue-800">🎓 Eng. Computação (2026)</span>
               <span className="px-3 py-1 bg-purple-900/30 text-purple-300 text-xs font-mono rounded border border-purple-800">📡 Téc. Redes (2021)</span>
@@ -104,7 +105,7 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* 2. TECH STACK (REFOCADA) */}
+      {/* 2. TECH STACK */}
       <div className="bg-gray-950 py-12 border-b border-gray-900">
         <div className="max-w-5xl mx-auto px-6">
           <p className="text-center text-sm text-gray-500 font-semibold uppercase tracking-wider mb-8">
@@ -133,9 +134,32 @@ export default async function Home() {
         </h2>
         
         {projects.length === 0 ? (
-          <div className="text-center py-20 bg-gray-900/50 rounded-2xl border border-gray-800">
-            <p className="text-gray-400 mb-2">Carregando projetos...</p>
-            <p className="text-xs text-gray-600">(Aguardando o servidor do Render iniciar) ☕</p>
+          // --- LOADING STATE (COLD START AVISO) ---
+          <div className="flex flex-col items-center justify-center py-24 px-6 text-center bg-gray-900/50 rounded-2xl border border-gray-800 border-dashed">
+            {/* Ícone de Loading Animado */}
+            <div className="relative mb-6">
+              <div className="w-16 h-16 border-4 border-blue-900 rounded-full align-middle"></div>
+              <div className="absolute top-0 left-0 w-16 h-16 border-4 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+            </div>
+
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+              Acordando o Servidor... 😴
+            </h3>
+            
+            <p className="text-gray-400 max-w-lg mb-6 leading-relaxed">
+              Como este portfólio utiliza infraestrutura gratuita (Render Free Tier), 
+              o Backend Java pode entrar em modo de suspensão.
+              <br className="hidden md:block" />
+              Por favor, aguarde cerca de <strong>40 a 50 segundos</strong> para a inicialização do container.
+            </p>
+
+            <div className="flex gap-3 text-xs font-mono text-blue-300 bg-blue-900/20 px-4 py-2 rounded-full border border-blue-900/50 flex-wrap justify-center">
+              <span>☕ Iniciando Spring Boot</span>
+              <span>•</span>
+              <span>🐳 Subindo Docker</span>
+              <span>•</span>
+              <span>🚀 Conectando DB</span>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
