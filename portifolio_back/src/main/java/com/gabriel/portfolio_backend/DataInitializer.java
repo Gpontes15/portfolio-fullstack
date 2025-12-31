@@ -67,6 +67,16 @@ public class DataInitializer {
             p5.setCompletionDate(LocalDate.now());
             repository.save(p5);
 
+            // --- PROJETO 6: ENCURTADOR DE URL (REDIS CACHE) ---
+            Project p6 = new Project();
+            p6.setTitle("URL Shortener de Alta Performance");
+            p6.setDescription("API de encurtamento de links projetada para escala. Utiliza a estratégia 'Cache-Aside' com Redis para reduzir a latência de leitura em 90% e PostgreSQL para persistência segura. Infraestrutura 100% dockerizada.");
+            p6.setGithubUrl("https://github.com/Gpontes15/encurtador-url"); // Crie esse repo depois!
+            p6.setTechStack("Java 17, Spring Boot, Redis, PostgreSQL, Docker, Guava Hashing");
+            p6.setImageUrl("/redis-cache.png"); // Vamos salvar seu print com esse nome
+            p6.setCompletionDate(LocalDate.now());
+            repository.save(p6);
+
             System.out.println("✅ Banco de dados atualizado com 4 projetos!");
         };
     }
